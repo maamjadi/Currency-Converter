@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jBb-86-a4F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FOi-qJ-Z1e">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="448" width="414" height="448"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMW-ud-X9Q">
-                                        <rect key="frame" x="162" y="340" width="90" height="66"/>
+                                        <rect key="frame" x="162" y="315" width="90" height="66"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal" title="USD">
                                             <color key="titleColor" name="LightColor"/>
@@ -39,7 +39,7 @@
                                 <color key="backgroundColor" name="DarkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="fQj-h7-qni" secondAttribute="trailing" id="GK0-Qz-gmM"/>
-                                    <constraint firstItem="hMW-ud-X9Q" firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottomMargin" id="Qsa-5Z-DHm"/>
+                                    <constraint firstItem="hMW-ud-X9Q" firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottomMargin" constant="-25" id="Qsa-5Z-DHm"/>
                                     <constraint firstItem="fQj-h7-qni" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ecv-FB-baW"/>
                                     <constraint firstItem="fQj-h7-qni" firstAttribute="centerY" secondItem="DiD-hn-b0t" secondAttribute="centerY" id="fcS-Pq-SXn"/>
                                     <constraint firstItem="hMW-ud-X9Q" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ijI-9O-mLt"/>
@@ -117,7 +117,7 @@
         <!--History View Controller-->
         <scene sceneID="mVu-hw-VZo">
             <objects>
-                <viewController id="88d-GY-Pm9" customClass="HistoryViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="historyVC" id="88d-GY-Pm9" customClass="HistoryViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vod-Ym-IkC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,13 +129,13 @@
             </objects>
             <point key="canvasLocation" x="725" y="21"/>
         </scene>
-        <!--Main View Controller-->
-        <scene sceneID="ahQ-zv-Dez">
+        <!--Main Page View Controller-->
+        <scene sceneID="YG1-9P-uj4">
             <objects>
-                <viewController id="jBb-86-a4F" customClass="MainViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6gw-Ab-jE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="FOi-qJ-Z1e" customClass="MainPageViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wd7-Uy-Fdm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="400" y="-646"/>
+            <point key="canvasLocation" x="386" y="-632"/>
         </scene>
         <!--Rates View Controller-->
         <scene sceneID="a8k-ah-o7d">
