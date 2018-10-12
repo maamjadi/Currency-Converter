@@ -34,6 +34,9 @@ class ExchangeViewController: UIViewController {
         
         let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(dimissCurrenciesTableView(_:)))
         dimView.addGestureRecognizer(tapToDismiss)
+        
+        let tapToSwap = UITapGestureRecognizer(target: self, action: #selector(swapTheCurrencies(_:)))
+        centerArrowImageView.addGestureRecognizer(tapToSwap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +47,16 @@ class ExchangeViewController: UIViewController {
         dimView.isHidden = true
         centerArrowBorder.layer.cornerRadius = centerArrowBorder.frame.width / 2
         centerArrowImageView.layer.cornerRadius = centerArrowImageView.frame.width / 2
+    }
+    
+    @objc
+    private func swapTheCurrencies(_ sender: UITapGestureRecognizer?) {
+        let tempCurr = firstCurrency.currentTitle
+        UIView.animate(withDuration: 0.4) {
+            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: (2 * .pi))
+            self.firstCurrency.setTitle(self.secondCurrency.currentTitle, for: .normal)
+            self.secondCurrency.setTitle(tempCurr, for: .normal)
+        }
     }
     
     @objc

@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="448" width="414" height="448"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMW-ud-X9Q">
-                                        <rect key="frame" x="162" y="315" width="90" height="66"/>
+                                        <rect key="frame" x="0.0" y="315" width="414" height="66"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal" title="USD">
                                             <color key="titleColor" name="LightColor"/>
@@ -32,9 +32,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQj-h7-qni">
-                                        <rect key="frame" x="97.5" y="170" width="219" height="108"/>
+                                        <rect key="frame" x="0.0" y="170" width="414" height="108"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="80"/>
-                                        <state key="normal" title="00.00">
+                                        <state key="normal" title="0.00">
                                             <color key="titleColor" name="LightColor"/>
                                         </state>
                                         <connections>
@@ -45,16 +45,20 @@
                                 <color key="backgroundColor" name="DarkColor"/>
                                 <constraints>
                                     <constraint firstItem="hMW-ud-X9Q" firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottomMargin" constant="-25" id="Qsa-5Z-DHm"/>
+                                    <constraint firstItem="fQj-h7-qni" firstAttribute="leading" secondItem="DiD-hn-b0t" secondAttribute="leading" id="ZIF-hd-Ueo"/>
                                     <constraint firstItem="fQj-h7-qni" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ecv-FB-baW"/>
                                     <constraint firstItem="fQj-h7-qni" firstAttribute="centerY" secondItem="DiD-hn-b0t" secondAttribute="centerY" id="fcS-Pq-SXn"/>
                                     <constraint firstItem="hMW-ud-X9Q" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ijI-9O-mLt"/>
+                                    <constraint firstItem="hMW-ud-X9Q" firstAttribute="leading" secondItem="DiD-hn-b0t" secondAttribute="leading" id="xpX-0G-vGG"/>
+                                    <constraint firstAttribute="trailing" secondItem="hMW-ud-X9Q" secondAttribute="trailing" id="xyS-DL-ROR"/>
+                                    <constraint firstAttribute="trailing" secondItem="fQj-h7-qni" secondAttribute="trailing" id="ysK-HG-6hQ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xcx-Rs-THT">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrK-kc-Kmb">
-                                        <rect key="frame" x="164.5" y="52" width="85" height="66"/>
+                                        <rect key="frame" x="0.0" y="52" width="414" height="66"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <state key="normal" title="EUR">
                                             <color key="titleColor" name="DarkColor"/>
@@ -64,9 +68,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xr-39-svK">
-                                        <rect key="frame" x="97.5" y="170" width="219" height="108"/>
+                                        <rect key="frame" x="0.0" y="170" width="414" height="108"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="80"/>
-                                        <state key="normal" title="00.00">
+                                        <state key="normal" title="0.00">
                                             <color key="titleColor" name="DarkColor"/>
                                         </state>
                                         <connections>
@@ -76,16 +80,20 @@
                                 </subviews>
                                 <color key="backgroundColor" name="LightColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5Xr-39-svK" secondAttribute="trailing" id="26w-tG-C5w"/>
                                     <constraint firstItem="nrK-kc-Kmb" firstAttribute="top" secondItem="Xcx-Rs-THT" secondAttribute="topMargin" id="AoZ-oj-eTl"/>
+                                    <constraint firstAttribute="trailing" secondItem="nrK-kc-Kmb" secondAttribute="trailing" id="DMV-zO-71Q"/>
                                     <constraint firstItem="5Xr-39-svK" firstAttribute="centerY" secondItem="Xcx-Rs-THT" secondAttribute="centerY" id="O08-9x-TCa"/>
                                     <constraint firstItem="5Xr-39-svK" firstAttribute="centerX" secondItem="Xcx-Rs-THT" secondAttribute="centerX" id="Wwb-cV-GaU"/>
+                                    <constraint firstItem="5Xr-39-svK" firstAttribute="leading" secondItem="Xcx-Rs-THT" secondAttribute="leading" id="iht-sy-aEC"/>
                                     <constraint firstItem="nrK-kc-Kmb" firstAttribute="centerX" secondItem="Xcx-Rs-THT" secondAttribute="centerX" id="oTR-Cn-WRT"/>
+                                    <constraint firstItem="nrK-kc-Kmb" firstAttribute="leading" secondItem="Xcx-Rs-THT" secondAttribute="leading" id="osG-Lb-MZV"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEX-Pt-EG9">
                                 <rect key="frame" x="132" y="373" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="O9n-1R-1zX">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="O9n-1R-1zX">
                                         <rect key="frame" x="12.5" y="12.5" width="125" height="125"/>
                                         <color key="backgroundColor" name="DarkColor"/>
                                         <color key="tintColor" name="LightColor"/>
@@ -130,6 +138,11 @@
                             <constraint firstItem="Xcx-Rs-THT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yYJ-hn-1d6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ngb-ll-Dwv"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="centerArrowBorder" destination="MEX-Pt-EG9" id="kQ5-0o-UUz"/>
@@ -360,9 +373,12 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ga3-Aa-RQB">
                                                 <rect key="frame" x="244" y="0.0" width="106" height="106"/>
-                                                <color key="backgroundColor" red="0.1803921568627451" green="0.18823529411764706" blue="0.19215686274509805" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="DarkColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                                <state key="normal" title="✓"/>
+                                                <color key="tintColor" name="LightColor"/>
+                                                <state key="normal" title="✓">
+                                                    <color key="titleColor" name="LightColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="doneAction:" destination="LKV-b2-U2V" eventType="touchUpInside" id="TZi-48-reO"/>
                                                 </connections>
@@ -406,7 +422,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.078431372550000003" green="0.37254901959999998" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="LightColor"/>
                         <constraints>
                             <constraint firstItem="fJ4-qk-5cg" firstAttribute="top" secondItem="r2x-8i-65h" secondAttribute="top" id="6f1-d6-z2G"/>
                             <constraint firstItem="R8j-eX-vZ3" firstAttribute="centerX" secondItem="5MJ-I8-MBS" secondAttribute="centerX" id="Fwm-Ie-ytM"/>
@@ -439,7 +455,7 @@
             <color red="0.1803921568627451" green="0.18823529411764706" blue="0.19215686274509805" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightColor">
-            <color red="0.078431372549019607" green="0.37254901960784315" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.47843137254901963" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
