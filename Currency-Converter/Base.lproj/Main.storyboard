@@ -27,9 +27,12 @@
                                         <state key="normal" title="USD">
                                             <color key="titleColor" name="LightColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="secondCurrAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JN8-E6-xly"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQj-h7-qni">
-                                        <rect key="frame" x="8" y="170" width="398" height="108"/>
+                                        <rect key="frame" x="97.5" y="170" width="219" height="108"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="80"/>
                                         <state key="normal" title="00.00">
                                             <color key="titleColor" name="LightColor"/>
@@ -41,12 +44,10 @@
                                 </subviews>
                                 <color key="backgroundColor" name="DarkColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="fQj-h7-qni" secondAttribute="trailing" id="GK0-Qz-gmM"/>
                                     <constraint firstItem="hMW-ud-X9Q" firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottomMargin" constant="-25" id="Qsa-5Z-DHm"/>
                                     <constraint firstItem="fQj-h7-qni" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ecv-FB-baW"/>
                                     <constraint firstItem="fQj-h7-qni" firstAttribute="centerY" secondItem="DiD-hn-b0t" secondAttribute="centerY" id="fcS-Pq-SXn"/>
                                     <constraint firstItem="hMW-ud-X9Q" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ijI-9O-mLt"/>
-                                    <constraint firstItem="fQj-h7-qni" firstAttribute="leading" secondItem="DiD-hn-b0t" secondAttribute="leadingMargin" id="jZp-lE-juH"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xcx-Rs-THT">
@@ -58,9 +59,12 @@
                                         <state key="normal" title="EUR">
                                             <color key="titleColor" name="DarkColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="firstCurrAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kJ9-B5-zJl"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xr-39-svK">
-                                        <rect key="frame" x="8" y="170" width="398" height="108"/>
+                                        <rect key="frame" x="97.5" y="170" width="219" height="108"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="80"/>
                                         <state key="normal" title="00.00">
                                             <color key="titleColor" name="DarkColor"/>
@@ -72,12 +76,10 @@
                                 </subviews>
                                 <color key="backgroundColor" name="LightColor"/>
                                 <constraints>
-                                    <constraint firstItem="5Xr-39-svK" firstAttribute="leading" secondItem="Xcx-Rs-THT" secondAttribute="leadingMargin" id="0Yj-F5-rWw"/>
                                     <constraint firstItem="nrK-kc-Kmb" firstAttribute="top" secondItem="Xcx-Rs-THT" secondAttribute="topMargin" id="AoZ-oj-eTl"/>
                                     <constraint firstItem="5Xr-39-svK" firstAttribute="centerY" secondItem="Xcx-Rs-THT" secondAttribute="centerY" id="O08-9x-TCa"/>
                                     <constraint firstItem="5Xr-39-svK" firstAttribute="centerX" secondItem="Xcx-Rs-THT" secondAttribute="centerX" id="Wwb-cV-GaU"/>
                                     <constraint firstItem="nrK-kc-Kmb" firstAttribute="centerX" secondItem="Xcx-Rs-THT" secondAttribute="centerX" id="oTR-Cn-WRT"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="5Xr-39-svK" secondAttribute="trailing" id="pUK-40-D2Z"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEX-Pt-EG9">
@@ -101,6 +103,14 @@
                                     <constraint firstItem="O9n-1R-1zX" firstAttribute="centerY" secondItem="MEX-Pt-EG9" secondAttribute="centerY" id="yLp-z0-nlu"/>
                                 </constraints>
                             </view>
+                            <visualEffectView hidden="YES" opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ngb-ll-Dwv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="G5f-kd-bh4">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -108,9 +118,13 @@
                             <constraint firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottom" id="3TA-46-Zib"/>
                             <constraint firstItem="Xcx-Rs-THT" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="5sZ-NK-Bw9"/>
                             <constraint firstItem="MEX-Pt-EG9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BHr-QE-Qsg"/>
+                            <constraint firstAttribute="bottom" secondItem="ngb-ll-Dwv" secondAttribute="bottom" id="DX0-yv-t21"/>
                             <constraint firstItem="DiD-hn-b0t" firstAttribute="top" secondItem="Xcx-Rs-THT" secondAttribute="bottom" id="OQa-Uy-Asq"/>
                             <constraint firstItem="Xcx-Rs-THT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mgm-jI-wIH"/>
+                            <constraint firstItem="ngb-ll-Dwv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pxf-6I-kjb"/>
+                            <constraint firstAttribute="trailing" secondItem="ngb-ll-Dwv" secondAttribute="trailing" id="q4A-oe-7f4"/>
                             <constraint firstAttribute="trailing" secondItem="Xcx-Rs-THT" secondAttribute="trailing" id="uTZ-zL-B15"/>
+                            <constraint firstItem="ngb-ll-Dwv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wbo-Wc-SSb"/>
                             <constraint firstItem="DiD-hn-b0t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xEO-0X-wLH"/>
                             <constraint firstItem="MEX-Pt-EG9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="xVt-G1-lWS"/>
                             <constraint firstItem="Xcx-Rs-THT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yYJ-hn-1d6"/>
@@ -120,6 +134,8 @@
                     <connections>
                         <outlet property="centerArrowBorder" destination="MEX-Pt-EG9" id="kQ5-0o-UUz"/>
                         <outlet property="centerArrowImageView" destination="O9n-1R-1zX" id="uxk-Np-8VR"/>
+                        <outlet property="currenciesTableView" destination="GH7-T7-I32" id="0UH-vI-5Io"/>
+                        <outlet property="dimView" destination="ngb-ll-Dwv" id="BJ6-Fm-HMM"/>
                         <outlet property="firstAmount" destination="5Xr-39-svK" id="Q4F-Ps-bvT"/>
                         <outlet property="firstCurrency" destination="nrK-kc-Kmb" id="v9e-HF-NBF"/>
                         <outlet property="secondAmount" destination="fQj-h7-qni" id="Fz2-V2-Giw"/>
@@ -128,6 +144,32 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GH7-T7-I32">
+                    <rect key="frame" x="0.0" y="0.0" width="327" height="382"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" name="LightColor"/>
+                    <color key="sectionIndexColor" name="DarkColor"/>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="currencyCell" textLabel="0cO-TB-fvR" rowHeight="51" style="IBUITableViewCellStyleDefault" id="E3E-mS-bEJ">
+                            <rect key="frame" x="0.0" y="28" width="327" height="51"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E3E-mS-bEJ" id="rQf-AQ-Khc">
+                                <rect key="frame" x="0.0" y="0.0" width="327" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0cO-TB-fvR">
+                                        <rect key="frame" x="20" y="0.0" width="287" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                        <color key="textColor" name="DarkColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </tableViewCellContentView>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableViewCell>
+                    </prototypes>
+                </tableView>
             </objects>
             <point key="canvasLocation" x="48" y="21"/>
         </scene>
@@ -152,7 +194,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="FOi-qJ-Z1e" customClass="MainPageViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wd7-Uy-Fdm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="386" y="-632"/>
+            <point key="canvasLocation" x="381" y="-836"/>
         </scene>
         <!--Numeric View Controller-->
         <scene sceneID="a8k-ah-o7d">
