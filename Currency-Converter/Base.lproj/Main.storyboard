@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jBb-86-a4F">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Exchange View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="exchangeVC" id="BYZ-38-t0r" customClass="ExchangeViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DiD-hn-b0t">
+                                <rect key="frame" x="0.0" y="448" width="414" height="448"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMW-ud-X9Q">
+                                        <rect key="frame" x="162" y="340" width="90" height="66"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                        <state key="normal" title="USD">
+                                            <color key="titleColor" name="LightColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQj-h7-qni">
+                                        <rect key="frame" x="8" y="170" width="398" height="108"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="80"/>
+                                        <state key="normal" title="00.00">
+                                            <color key="titleColor" name="LightColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="DarkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailingMargin" secondItem="fQj-h7-qni" secondAttribute="trailing" id="GK0-Qz-gmM"/>
+                                    <constraint firstItem="hMW-ud-X9Q" firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottomMargin" id="Qsa-5Z-DHm"/>
+                                    <constraint firstItem="fQj-h7-qni" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ecv-FB-baW"/>
+                                    <constraint firstItem="fQj-h7-qni" firstAttribute="centerY" secondItem="DiD-hn-b0t" secondAttribute="centerY" id="fcS-Pq-SXn"/>
+                                    <constraint firstItem="hMW-ud-X9Q" firstAttribute="centerX" secondItem="DiD-hn-b0t" secondAttribute="centerX" id="ijI-9O-mLt"/>
+                                    <constraint firstItem="fQj-h7-qni" firstAttribute="leading" secondItem="DiD-hn-b0t" secondAttribute="leadingMargin" id="jZp-lE-juH"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xcx-Rs-THT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="448"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrK-kc-Kmb">
+                                        <rect key="frame" x="164.5" y="52" width="85" height="66"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                        <state key="normal" title="EUR">
+                                            <color key="titleColor" name="DarkColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xr-39-svK">
+                                        <rect key="frame" x="8" y="170" width="398" height="108"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="80"/>
+                                        <state key="normal" title="00.00">
+                                            <color key="titleColor" name="DarkColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="LightColor"/>
+                                <constraints>
+                                    <constraint firstItem="5Xr-39-svK" firstAttribute="leading" secondItem="Xcx-Rs-THT" secondAttribute="leadingMargin" id="0Yj-F5-rWw"/>
+                                    <constraint firstItem="nrK-kc-Kmb" firstAttribute="top" secondItem="Xcx-Rs-THT" secondAttribute="topMargin" id="AoZ-oj-eTl"/>
+                                    <constraint firstItem="5Xr-39-svK" firstAttribute="centerY" secondItem="Xcx-Rs-THT" secondAttribute="centerY" id="O08-9x-TCa"/>
+                                    <constraint firstItem="5Xr-39-svK" firstAttribute="centerX" secondItem="Xcx-Rs-THT" secondAttribute="centerX" id="Wwb-cV-GaU"/>
+                                    <constraint firstItem="nrK-kc-Kmb" firstAttribute="centerX" secondItem="Xcx-Rs-THT" secondAttribute="centerX" id="oTR-Cn-WRT"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="5Xr-39-svK" secondAttribute="trailing" id="pUK-40-D2Z"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEX-Pt-EG9">
+                                <rect key="frame" x="132" y="373" width="150" height="150"/>
+                                <color key="backgroundColor" name="LightColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MEX-Pt-EG9" secondAttribute="height" multiplier="1:1" id="7SD-Lt-yPm"/>
+                                    <constraint firstAttribute="width" constant="150" id="IZs-ep-hVl"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="O9n-1R-1zX">
+                                <rect key="frame" x="144.5" y="385.5" width="125" height="125"/>
+                                <color key="backgroundColor" name="DarkColor"/>
+                                <color key="tintColor" name="LightColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="O9n-1R-1zX" secondAttribute="height" multiplier="1:1" id="7Yz-mh-Nlt"/>
+                                    <constraint firstAttribute="height" constant="125" id="A8r-Ty-xoM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DiD-hn-b0t" secondAttribute="trailing" id="2JV-Wc-DKq"/>
+                            <constraint firstAttribute="bottom" secondItem="DiD-hn-b0t" secondAttribute="bottom" id="3TA-46-Zib"/>
+                            <constraint firstItem="Xcx-Rs-THT" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="5sZ-NK-Bw9"/>
+                            <constraint firstItem="MEX-Pt-EG9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BHr-QE-Qsg"/>
+                            <constraint firstItem="DiD-hn-b0t" firstAttribute="top" secondItem="Xcx-Rs-THT" secondAttribute="bottom" id="OQa-Uy-Asq"/>
+                            <constraint firstItem="O9n-1R-1zX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RSv-UH-lbY"/>
+                            <constraint firstItem="Xcx-Rs-THT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mgm-jI-wIH"/>
+                            <constraint firstAttribute="trailing" secondItem="Xcx-Rs-THT" secondAttribute="trailing" id="uTZ-zL-B15"/>
+                            <constraint firstItem="O9n-1R-1zX" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="wWj-6a-o3w"/>
+                            <constraint firstItem="DiD-hn-b0t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xEO-0X-wLH"/>
+                            <constraint firstItem="MEX-Pt-EG9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="xVt-G1-lWS"/>
+                            <constraint firstItem="Xcx-Rs-THT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yYJ-hn-1d6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="48" y="21"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="mVu-hw-VZo">
+            <objects>
+                <viewController id="88d-GY-Pm9" customClass="HistoryViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vod-Ym-IkC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18823529410000001" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Qfl-iE-xAe"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5HM-EW-vZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="725" y="21"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="ahQ-zv-Dez">
+            <objects>
+                <viewController id="jBb-86-a4F" customClass="MainViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gw-Ab-jE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="400" y="-646"/>
+        </scene>
+        <!--Rates View Controller-->
+        <scene sceneID="a8k-ah-o7d">
+            <objects>
+                <viewController id="LKV-b2-U2V" customClass="RatesViewController" customModule="Currency_Converter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5MJ-I8-MBS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.078431372550000003" green="0.37254901959999998" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="r2x-8i-65h"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="odB-qU-gPB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="48" y="683"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow" width="100" height="100"/>
+        <namedColor name="DarkColor">
+            <color red="0.1803921568627451" green="0.18823529411764706" blue="0.19215686274509805" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightColor">
+            <color red="0.078431372549019607" green="0.37254901960784315" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
