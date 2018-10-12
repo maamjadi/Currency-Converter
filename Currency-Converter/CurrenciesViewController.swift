@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RatesViewController: UIViewController {
+class CurrenciesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

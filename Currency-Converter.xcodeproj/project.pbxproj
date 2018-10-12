@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D87CDFE2170A47400ABBF35 /* NumericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */; };
+		4D87CE002170BFA600ABBF35 /* NumberSetterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */; };
 		4DA97D6B216FCBEC002C1727 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D6A216FCBEC002C1727 /* AppDelegate.swift */; };
 		4DA97D6D216FCBEC002C1727 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D6C216FCBEC002C1727 /* MainPageViewController.swift */; };
 		4DA97D70216FCBEC002C1727 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DA97D6E216FCBEC002C1727 /* Main.storyboard */; };
@@ -16,7 +18,7 @@
 		4DA97D8B216FCBED002C1727 /* Currency_ConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D8A216FCBED002C1727 /* Currency_ConverterUITests.swift */; };
 		4DA97D9A216FE811002C1727 /* ExchangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D99216FE811002C1727 /* ExchangeViewController.swift */; };
 		4DA97D9C216FE924002C1727 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D9B216FE924002C1727 /* HistoryViewController.swift */; };
-		4DA97D9E216FE965002C1727 /* RatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D9D216FE965002C1727 /* RatesViewController.swift */; };
+		4DA97D9E216FE965002C1727 /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D9D216FE965002C1727 /* CurrenciesViewController.swift */; };
 		4DA97DA021707719002C1727 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DA97D9F21707719002C1727 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericViewController.swift; sourceTree = "<group>"; };
+		4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSetterProtocol.swift; sourceTree = "<group>"; };
 		4DA97D67216FCBEC002C1727 /* Currency-Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency-Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DA97D6A216FCBEC002C1727 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DA97D6C216FCBEC002C1727 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +57,7 @@
 		4DA97D8C216FCBED002C1727 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DA97D99216FE811002C1727 /* ExchangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeViewController.swift; sourceTree = "<group>"; };
 		4DA97D9B216FE924002C1727 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		4DA97D9D216FE965002C1727 /* RatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesViewController.swift; sourceTree = "<group>"; };
+		4DA97D9D216FE965002C1727 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
 		4DA97D9F21707719002C1727 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,7 +112,9 @@
 				4DA97D6C216FCBEC002C1727 /* MainPageViewController.swift */,
 				4DA97D99216FE811002C1727 /* ExchangeViewController.swift */,
 				4DA97D9B216FE924002C1727 /* HistoryViewController.swift */,
-				4DA97D9D216FE965002C1727 /* RatesViewController.swift */,
+				4DA97D9D216FE965002C1727 /* CurrenciesViewController.swift */,
+				4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */,
+				4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */,
 				4DA97D6E216FCBEC002C1727 /* Main.storyboard */,
 				4DA97D98216FDACF002C1727 /* Supporting Files */,
 			);
@@ -277,11 +283,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DA97D9E216FE965002C1727 /* RatesViewController.swift in Sources */,
+				4D87CDFE2170A47400ABBF35 /* NumericViewController.swift in Sources */,
+				4DA97D9E216FE965002C1727 /* CurrenciesViewController.swift in Sources */,
 				4DA97D6D216FCBEC002C1727 /* MainPageViewController.swift in Sources */,
 				4DA97D6B216FCBEC002C1727 /* AppDelegate.swift in Sources */,
 				4DA97D9A216FE811002C1727 /* ExchangeViewController.swift in Sources */,
 				4DA97D9C216FE924002C1727 /* HistoryViewController.swift in Sources */,
+				4D87CE002170BFA600ABBF35 /* NumberSetterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
