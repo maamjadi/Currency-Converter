@@ -26,30 +26,32 @@ class RateHandler {
         }
         
         URLSession.shared.dataTask(with: theURL) { (data, _, err) in
-            if let err = err {
-                completionHandler(false, "Fail to get data from url:\(err)", nil)
-                return
+            DispatchQueue.main.async {
+                if let err = err {
+                    completionHandler(false, "Fail to get data from url:\(err)", nil)
+                    return
+                }
+                
+                guard let data = data else {
+                    completionHandler(false, nil, nil)
+                    return
+                }
+                
+                do {
+                    //decoding the json data
+                    let decoder = JSONDecoder()
+                    self.todaysRates = try decoder.decode(RatesModel.self, from: data)
+                    completionHandler(true, nil, self.todaysRates!)
+                } catch let jsonErr {
+                    completionHandler(false, "Fail to decode:\(jsonErr)", nil)
+                }
             }
-            
-            guard let data = data else {
-                completionHandler(false, nil, nil)
-                return
-            }
-            
-            do {
-                //decoding the json data
-                let decoder = JSONDecoder()
-                self.todaysRates = try decoder.decode(RatesModel.self, from: data)
-                completionHandler(true, nil, self.todaysRates!)
-            } catch let jsonErr {
-                completionHandler(false, "Fail to decode:\(jsonErr)", nil)
-            }
-        }.resume()
+            }.resume()
         
     }
     
     private func getlastSevenDaysRates() {
-    
+        
     }
     
     func convert(amount: Float, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Float) -> Void) {
