@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D1BD18D2171279B0002DDE2 /* RateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1BD18C2171279B0002DDE2 /* RateHandler.swift */; };
+		4D1BD18F21725D600002DDE2 /* RatesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1BD18E21725D600002DDE2 /* RatesModel.swift */; };
 		4D87CDFE2170A47400ABBF35 /* NumericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */; };
 		4D87CE002170BFA600ABBF35 /* NumberSetterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */; };
 		4DA97D6B216FCBEC002C1727 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA97D6A216FCBEC002C1727 /* AppDelegate.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D1BD18C2171279B0002DDE2 /* RateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateHandler.swift; sourceTree = "<group>"; };
+		4D1BD18E21725D600002DDE2 /* RatesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesModel.swift; sourceTree = "<group>"; };
 		4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericViewController.swift; sourceTree = "<group>"; };
 		4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSetterProtocol.swift; sourceTree = "<group>"; };
 		4DA97D67216FCBEC002C1727 /* Currency-Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency-Converter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,8 +119,10 @@
 				4DA97D9D216FE965002C1727 /* CurrenciesViewController.swift */,
 				4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */,
 				4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */,
+				4D1BD18C2171279B0002DDE2 /* RateHandler.swift */,
 				4DA97D6E216FCBEC002C1727 /* Main.storyboard */,
 				4DA97D98216FDACF002C1727 /* Supporting Files */,
+				4D1BD18E21725D600002DDE2 /* RatesModel.swift */,
 			);
 			path = "Currency-Converter";
 			sourceTree = "<group>";
@@ -289,6 +295,8 @@
 				4DA97D6B216FCBEC002C1727 /* AppDelegate.swift in Sources */,
 				4DA97D9A216FE811002C1727 /* ExchangeViewController.swift in Sources */,
 				4DA97D9C216FE924002C1727 /* HistoryViewController.swift in Sources */,
+				4D1BD18F21725D600002DDE2 /* RatesModel.swift in Sources */,
+				4D1BD18D2171279B0002DDE2 /* RateHandler.swift in Sources */,
 				4D87CE002170BFA600ABBF35 /* NumberSetterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,16 +31,20 @@ class ExchangeViewController: UIViewController {
         currenciesTableView.dataSource = self
         
         setupUI()
-        
+        setupData()
+        setupGestures()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        animateArrow()
+    }
+    
+    private func setupGestures() {
         let tapToDismiss = UITapGestureRecognizer(target: self, action: #selector(dimissCurrenciesTableView(_:)))
         dimView.addGestureRecognizer(tapToDismiss)
         
         let tapToSwap = UITapGestureRecognizer(target: self, action: #selector(swapTheCurrencies(_:)))
         centerArrowImageView.addGestureRecognizer(tapToSwap)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        animateArrow()
     }
     
     private func setupUI() {
@@ -49,14 +53,45 @@ class ExchangeViewController: UIViewController {
         centerArrowImageView.layer.cornerRadius = centerArrowImageView.frame.width / 2
     }
     
+    private func setupData() {
+        guard let firstCurrencyTitle = firstCurrency.currentTitle, let secondCurrencyTitle = secondCurrency.currentTitle else {
+            return
+        }
+        var first = firstCurrencyTitle
+        var second = secondCurrencyTitle
+        var amountStr = firstAmount.currentTitle!
+        var convertedAmountBtn = secondAmount
+        
+        //checking to see if the direction of the conversion is opposite
+        if reverseArrowDirection {
+            first = secondCurrencyTitle
+            second = firstCurrencyTitle
+            amountStr = secondAmount.currentTitle!
+            convertedAmountBtn = firstAmount
+        }
+        
+        //crashing in case it cannot convert the String to Float
+        let convertedFloat = RateHandler.shared.convert(amount: Float(amountStr)!, firstCurrency: first, secondCurrency: second)
+        convertedAmountBtn?.setTitle(String(describing: convertedFloat), for: .normal)
+    }
+    
     @objc
     private func swapTheCurrencies(_ sender: UITapGestureRecognizer?) {
         let tempCurr = firstCurrency.currentTitle
-        UIView.animate(withDuration: 0.4) {
-            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: (2 * .pi))
+    
+        UIView.animate(withDuration: 0.2, animations: {
+            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: .pi)
+            self.firstCurrency.isHidden = true
+            self.secondCurrency.isHidden = true
             self.firstCurrency.setTitle(self.secondCurrency.currentTitle, for: .normal)
             self.secondCurrency.setTitle(tempCurr, for: .normal)
-        }
+        })
+        UIView.animate(withDuration: 0.2, delay: 0.15, options: .curveEaseIn, animations: {
+            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: .pi * 2.0)
+            self.setupData()
+            self.firstCurrency.isHidden = false
+            self.secondCurrency.isHidden = false
+        })
     }
     
     @objc
@@ -99,9 +134,9 @@ class ExchangeViewController: UIViewController {
                 transformation = CGAffineTransform(rotationAngle: .pi)
             }
             
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.centerArrowImageView.transform = transformation
-            }
+            })
             numberHasSet = false
         }
     }
@@ -140,6 +175,7 @@ extension ExchangeViewController: NumberSetterProtocol {
         } else {
             secondAmount.setTitle(num, for: .normal)
         }
+        setupData()
     }
 }
 
