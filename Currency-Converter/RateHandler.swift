@@ -12,6 +12,7 @@ class RateHandler {
     
     static let shared = RateHandler()
     
+    //fixer.io api key for using the service
     private let apiKey = "6554d9e9aa28145210f3e85cfa0a5cdf"
     private var todaysRates: RatesModel?
     
@@ -26,6 +27,7 @@ class RateHandler {
         }
         
         URLSession.shared.dataTask(with: theURL) { (data, _, err) in
+            //start the asynchronous task on main thread
             DispatchQueue.main.async {
                 if let err = err {
                     completionHandler(false, "Fail to get data from url:\(err)", nil)
@@ -59,6 +61,8 @@ class RateHandler {
             if let rates = rates, success {
                 var firstRate: Float?
                 var secondRate: Float?
+                
+                //looping through the rates to find the wanted ones
                 for (key, value) in rates.rates {
                     if key == firstCurr {
                         firstRate = value
@@ -94,6 +98,8 @@ class RateHandler {
                 for theKey in rates.rates.keys {
                     theData.append(theKey)
                 }
+                //sorting the array in alphabetical order
+                theData = theData.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
                 completionHandler(true, theData)
             } else {
                 completionHandler(false, [])

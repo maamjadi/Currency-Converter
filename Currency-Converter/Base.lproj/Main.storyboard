@@ -138,11 +138,6 @@
                             <constraint firstItem="Xcx-Rs-THT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yYJ-hn-1d6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="ngb-ll-Dwv"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="centerArrowBorder" destination="MEX-Pt-EG9" id="kQ5-0o-UUz"/>

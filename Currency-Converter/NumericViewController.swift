@@ -21,13 +21,11 @@ class NumericViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         numberLabel.text = "0"
-        self.view.layoutIfNeeded()
     }
     
     override func viewWillLayoutSubviews() {
@@ -45,6 +43,8 @@ class NumericViewController: UIViewController {
         
         self.view.backgroundColor = primaryColor
         numberLabel.textColor = secondaryColor
+        
+        //getting all the buttons in stackviews
         for stackView in numbersStackView.subviews {
             for view in stackView.subviews {
                 if let btn = view as? UIButton {
@@ -70,6 +70,8 @@ class NumericViewController: UIViewController {
             return
         }
         var theString = currentNum + senderNum
+        
+        //the conditions to make sure about the correct format of the float numbers
         if (senderNum == "0") && (currentNum == "0") {
             return
         }
