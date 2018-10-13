@@ -59,6 +59,19 @@ class ExchangeViewController: UIViewController {
     }
     
     private func setupData() {
+        RateHandler.shared.getTheCurrencies { (success, currencies) in
+            self.currenciesArray = currencies
+        }
+        firstCurrency.setTitle(getDevicesCurrencyCode(), for: .normal)
+        convertValue()
+    }
+    
+    private func getDevicesCurrencyCode() -> String {
+        let locale = Locale.current
+        return locale.currencyCode!
+    }
+    
+    private func convertValue() {
         guard let firstCurrencyTitle = firstCurrency.currentTitle, let secondCurrencyTitle = secondCurrency.currentTitle else {
             return
         }
@@ -75,37 +88,43 @@ class ExchangeViewController: UIViewController {
             convertedAmountBtn = firstAmount
         }
         
-        //calling convert function of rate handler to get converted value
-        RateHandler.shared.convert(amount: Float(amountStr)!, firstCurrency: first, secondCurrency: second) { (success, err, convertedFloat) in
-            if let error = err {
-                //presenting an alert dialog in case there will an error
-                let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
-                
-                self.present(alertController, animated: true, completion: nil)
+        if let floatAmount = Float(amountStr) {
+            //calling convert function of rate handler to get converted value
+            RateHandler.shared.convert(amount: floatAmount, firstCurrency: first, secondCurrency: second) { (success, err, convertedFloat) in
+                if let error = err {
+                    //presenting an alert dialog in case there will an error
+                    let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                convertedAmountBtn?.setTitle(String(describing: convertedFloat), for: .normal)
             }
-            convertedAmountBtn?.setTitle(String(describing: convertedFloat), for: .normal)
-        }
-        
-        RateHandler.shared.getTheCurrencies { (success, currencies) in
-            self.currenciesArray = currencies
         }
     }
     
     @objc
     private func swapTheCurrencies(_ sender: UITapGestureRecognizer?) {
         let tempCurr = firstCurrency.currentTitle
-    
+        
+        //to handle 360 deg. rotation of the arrow, for each directions of the arrow
+        var firstTransformDeg: CGFloat = .pi
+        var secondTransformDeg: CGFloat = 2 * .pi
+        if reverseArrowDirection {
+            firstTransformDeg = 2 * .pi
+            secondTransformDeg = 3 * .pi
+        }
+        
         UIView.animate(withDuration: 0.2, animations: {
-            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: .pi)
+            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: firstTransformDeg)
             self.firstCurrency.isHidden = true
             self.secondCurrency.isHidden = true
             self.firstCurrency.setTitle(self.secondCurrency.currentTitle, for: .normal)
             self.secondCurrency.setTitle(tempCurr, for: .normal)
         })
         UIView.animate(withDuration: 0.2, delay: 0.15, options: .curveEaseIn, animations: {
-            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: .pi * 2.0)
-            self.setupData()
+            self.centerArrowImageView.transform = CGAffineTransform(rotationAngle: secondTransformDeg)
+            self.convertValue()
             self.firstCurrency.isHidden = false
             self.secondCurrency.isHidden = false
         })
@@ -192,7 +211,7 @@ extension ExchangeViewController: NumberSetterProtocol {
         } else {
             secondAmount.setTitle(num, for: .normal)
         }
-        setupData()
+        convertValue()
     }
 }
 
@@ -208,6 +227,7 @@ extension ExchangeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath)
         cell.textLabel?.text = currenciesArray[indexPath.row]
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -220,9 +240,8 @@ extension ExchangeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if theBtnCurrency == 1 {
             secondCurrency.setTitle(theCurrency, for: .normal)
-        } else {
-            return
         }
+        convertValue()
         dimissCurrenciesTableView(nil)
     }
 }

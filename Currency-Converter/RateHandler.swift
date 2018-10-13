@@ -57,12 +57,34 @@ class RateHandler {
     func convert(amount: Float, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Float) -> Void) {
         fetchTodaysRates { (success, err, rates) in
             if let rates = rates, success {
-                completionHandler(true, nil, amount * 5)
+                var firstRate: Float?
+                var secondRate: Float?
+                for (key, value) in rates.rates {
+                    if key == firstCurr {
+                        firstRate = value
+                    }
+                    
+                    if key == secCurr {
+                        secondRate = value
+                    }
+                }
+                guard let theFirst = firstRate, let theSecond = secondRate else {
+                    completionHandler(false, "Choosen currency couldn't be found in data set", 0)
+                    return
+                }
+                let theRate = theSecond / theFirst
+                let val = self.roundToFiveDecimalPlaces(for: amount * theRate)
+                completionHandler(true, nil, val)
             } else {
                 //returns 0 as the converted value if it cannot get the rates
                 completionHandler(false, err, 0)
             }
         }
+    }
+    
+    private func roundToFiveDecimalPlaces(for theFLoat: Float) -> Float {
+        let val = Float(round(100000*theFLoat)/100000)
+        return val
     }
     
     func getTheCurrencies(completionHandler: @escaping (_ success: Bool, _ data: [String]) -> Void) {
