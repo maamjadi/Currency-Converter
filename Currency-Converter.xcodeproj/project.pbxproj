@@ -120,9 +120,9 @@
 				4D87CDFD2170A47400ABBF35 /* NumericViewController.swift */,
 				4D87CDFF2170BFA600ABBF35 /* NumberSetterProtocol.swift */,
 				4D1BD18C2171279B0002DDE2 /* RateHandler.swift */,
+				4D1BD18E21725D600002DDE2 /* RatesModel.swift */,
 				4DA97D6E216FCBEC002C1727 /* Main.storyboard */,
 				4DA97D98216FDACF002C1727 /* Supporting Files */,
-				4D1BD18E21725D600002DDE2 /* RatesModel.swift */,
 			);
 			path = "Currency-Converter";
 			sourceTree = "<group>";

@@ -23,6 +23,11 @@ class ExchangeViewController: UIViewController {
     private var reverseArrowDirection = false
     private var numberHasSet: Bool = false
     private var changetheCurrency: Int?
+    private var currenciesArray = [String]() {
+        didSet {
+            currenciesTableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +75,21 @@ class ExchangeViewController: UIViewController {
             convertedAmountBtn = firstAmount
         }
         
-        //crashing in case it cannot convert the String to Float
-        let convertedFloat = RateHandler.shared.convert(amount: Float(amountStr)!, firstCurrency: first, secondCurrency: second)
-        convertedAmountBtn?.setTitle(String(describing: convertedFloat), for: .normal)
+        //calling convert function of rate handler to get converted value
+        RateHandler.shared.convert(amount: Float(amountStr)!, firstCurrency: first, secondCurrency: second) { (success, err, convertedFloat) in
+            if let error = err {
+                //presenting an alert dialog in case there will an error
+                let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+            convertedAmountBtn?.setTitle(String(describing: convertedFloat), for: .normal)
+        }
+        
+        RateHandler.shared.getTheCurrencies { (success, currencies) in
+            self.currenciesArray = currencies
+        }
     }
     
     @objc
@@ -185,12 +202,12 @@ extension ExchangeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return currenciesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currencyCell", for: indexPath)
-        cell.textLabel?.text = "hi"
+        cell.textLabel?.text = currenciesArray[indexPath.row]
         return cell
     }
     
