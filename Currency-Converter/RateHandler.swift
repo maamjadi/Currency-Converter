@@ -14,50 +14,103 @@ class RateHandler {
     
     //fixer.io api key for using the service
     private let apiKey = "6554d9e9aa28145210f3e85cfa0a5cdf"
+    private let todayStr: String = "latest"
     private var todaysRates: RatesModel?
+    private var currentAmount: Float?
+    private var currentFirstCurr: String?
+    private var currentSecCurr: String?
     
-    private func fetchTodaysRates(completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: RatesModel?) -> Void) {
-        if let rates = todaysRates {
+    private func fetchRates(for theDate: String, completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: RatesModel?) -> Void) {
+        if let rates = todaysRates, theDate == todayStr {
             completionHandler(true, nil, rates)
+        } else {
+            let urlString = "http://data.fixer.io/api/\(theDate)?access_key=\(apiKey)&base=EUR"
+            guard let theURL = URL(string: urlString) else {
+                completionHandler(false, "couldn't convert String to URL", nil)
+                return
+            }
+            
+            URLSession.shared.dataTask(with: theURL) { (data, _, err) in
+                //start the asynchronous task on main thread
+                DispatchQueue.main.async {
+                    if let err = err {
+                        completionHandler(false, "Fail to get data from url:\(err)", nil)
+                        return
+                    }
+                    
+                    guard let data = data else {
+                        completionHandler(false, nil, nil)
+                        return
+                    }
+                    
+                    do {
+                        //decoding the json data
+                        let decoder = JSONDecoder()
+                        let theRates = try decoder.decode(RatesModel.self, from: data)
+                        if theDate == self.todayStr {
+                            self.todaysRates = theRates
+                        }
+                        completionHandler(true, nil, theRates)
+                    } catch let jsonErr {
+                        completionHandler(false, "Fail to decode:\(jsonErr)", nil)
+                    }
+                }
+                }.resume()
         }
-        let urlString = "http://data.fixer.io/api/latest?access_key=\(apiKey)&base=EUR"
-        guard let theURL = URL(string: urlString) else {
-            completionHandler(false, "couldn't convert String to URL", nil)
+        
+    }
+    
+    func convertionForLastSevenDays(completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: [(key: String, value: Float)]) -> Void) {
+        guard let amount = currentAmount, let firstCurr = currentFirstCurr, let secCurr = currentSecCurr else {
+            completionHandler(false, "selected values couldn't be found", [])
             return
         }
-        
-        URLSession.shared.dataTask(with: theURL) { (data, _, err) in
-            //start the asynchronous task on main thread
-            DispatchQueue.main.async {
-                if let err = err {
-                    completionHandler(false, "Fail to get data from url:\(err)", nil)
-                    return
-                }
-                
-                guard let data = data else {
-                    completionHandler(false, nil, nil)
-                    return
-                }
-                
-                do {
-                    //decoding the json data
-                    let decoder = JSONDecoder()
-                    self.todaysRates = try decoder.decode(RatesModel.self, from: data)
-                    completionHandler(true, nil, self.todaysRates!)
-                } catch let jsonErr {
-                    completionHandler(false, "Fail to decode:\(jsonErr)", nil)
-                }
+        var dataDictionary = [String : Float]()
+        let dates = getLastSevenDaysDates()
+        let myGroup = DispatchGroup()
+        for theDate in dates {
+            myGroup.enter()
+            convert(for: theDate, amount: amount, firstCurrency: firstCurr, secondCurrency: secCurr) { (_, _, convertedVal) in
+                dataDictionary[theDate] = convertedVal
+                myGroup.leave()
             }
-            }.resume()
+        }
         
+        myGroup.notify(queue: .main) {
+            if dataDictionary.count == 7 {
+                //sort function returns an array of tuple values instead of the dictionary
+                let dataTupleArray = dataDictionary.sorted(by: { $0.0 < $1.0 })
+                completionHandler(true, nil, dataTupleArray)
+            } else {
+                completionHandler(false, "Couldn't convert for all the 7 days", [])
+            }
+        }
     }
     
-    private func getlastSevenDaysRates() {
-        
+    private func getFormattedString(for date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
     }
     
-    func convert(amount: Float, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Float) -> Void) {
-        fetchTodaysRates { (success, err, rates) in
+    private func getLastSevenDaysDates() -> [String] {
+        var dates = [String]()
+        let calendar = Calendar.current
+        let today = Date()
+        dates.append(getFormattedString(for: today))
+        for i in 1...6 {
+            if let theDate = calendar.date(byAdding: .day, value: -i, to: today) {
+                dates.append(getFormattedString(for: theDate))
+            }
+        }
+        return dates
+    }
+    
+    func convert(for theDate: String? = nil, amount: Float, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Float) -> Void) {
+        currentAmount = amount
+        currentFirstCurr = firstCurr
+        currentSecCurr = secCurr
+        fetchRates(for: theDate ?? todayStr) { (success, err, rates) in
             if let rates = rates, success {
                 var firstRate: Float?
                 var secondRate: Float?
@@ -67,7 +120,6 @@ class RateHandler {
                     if key == firstCurr {
                         firstRate = value
                     }
-                    
                     if key == secCurr {
                         secondRate = value
                     }
@@ -92,7 +144,7 @@ class RateHandler {
     }
     
     func getTheCurrencies(completionHandler: @escaping (_ success: Bool, _ data: [String]) -> Void) {
-        fetchTodaysRates { (success, err, rates) in
+        fetchRates(for: todayStr) { (success, err, rates) in
             if let rates = rates, success {
                 var theData = [String]()
                 for theKey in rates.rates.keys {

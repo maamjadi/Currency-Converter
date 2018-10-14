@@ -17,6 +17,30 @@ class HistoryViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupChartView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        RateHandler.shared.convertionForLastSevenDays { (succ, err, data) in
+            if !(data.isEmpty) {
+                for theData in data {
+                    print(theData)
+                }
+            }
+        }
+    }
+    
+    private func setupChartView() {
+        chartView.delegate = self
+        chartView.chartDescription?.enabled = false
+        chartView.dragEnabled = true
+        chartView.setScaleEnabled(true)
+        chartView.pinchZoomEnabled = true
+        chartView.animate(xAxisDuration: 2.5)
     }
 
+}
+
+extension HistoryViewController: ChartViewDelegate {
+    
 }
