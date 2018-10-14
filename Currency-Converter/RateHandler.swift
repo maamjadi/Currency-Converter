@@ -14,6 +14,7 @@ class RateHandler {
     
     //fixer.io api key for using the service
     private let apiKey = "6554d9e9aa28145210f3e85cfa0a5cdf"
+    //string to get latest currency rates for today
     private let todayStr: String = "latest"
     private var todaysRates: RatesModel?
     private var currentAmount: Float?
@@ -21,6 +22,7 @@ class RateHandler {
     private var currentSecCurr: String?
     
     private func fetchRates(for theDate: String, completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: RatesModel?) -> Void) {
+        //checking if we have fetch the todaysRates before, to just return it
         if let rates = todaysRates, theDate == todayStr {
             completionHandler(true, nil, rates)
         } else {
@@ -47,6 +49,7 @@ class RateHandler {
                         //decoding the json data
                         let decoder = JSONDecoder()
                         let theRates = try decoder.decode(RatesModel.self, from: data)
+                        //assigning the rates to todayRates if the date is today
                         if theDate == self.todayStr {
                             self.todaysRates = theRates
                         }
@@ -55,9 +58,8 @@ class RateHandler {
                         completionHandler(false, "Fail to decode:\(jsonErr)", nil)
                     }
                 }
-                }.resume()
+            }.resume()
         }
-        
     }
     
     func convertionForLastSevenDays(completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: [(key: String, value: Float)]) -> Void) {
@@ -66,8 +68,9 @@ class RateHandler {
             return
         }
         var dataDictionary = [String : Float]()
-        let dates = getLastSevenDaysDates()
+        let dates: [String] = getLastSevenDaysDates()
         let myGroup = DispatchGroup()
+        //loop through the date strings to get their corresponding conversion rates
         for theDate in dates {
             myGroup.enter()
             var date: String? = theDate
@@ -81,6 +84,7 @@ class RateHandler {
             }
         }
         
+        //after the loop has been executed continue
         myGroup.notify(queue: .main) {
             if dataDictionary.count == 7 {
                 //sort function returns an array of tuple values instead of the dictionary
@@ -92,12 +96,14 @@ class RateHandler {
         }
     }
     
+    //convert the dates to the wanted string
     private func getFormattedString(for date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: date)
     }
     
+    //getting the dates for last seven days
     private func getLastSevenDaysDates() -> [String] {
         var dates = [String]()
         let calendar = Calendar.current
@@ -148,6 +154,7 @@ class RateHandler {
         return val
     }
     
+    //fetch the available currencies
     func getTheCurrencies(completionHandler: @escaping (_ success: Bool, _ data: [String]) -> Void) {
         fetchRates(for: todayStr) { (success, err, rates) in
             if let rates = rates, success {
