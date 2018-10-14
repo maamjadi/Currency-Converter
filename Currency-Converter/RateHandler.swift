@@ -70,7 +70,12 @@ class RateHandler {
         let myGroup = DispatchGroup()
         for theDate in dates {
             myGroup.enter()
-            convert(for: theDate, amount: amount, firstCurrency: firstCurr, secondCurrency: secCurr) { (_, _, convertedVal) in
+            var date: String? = theDate
+            //check and if theDate is today, it won't send any date to get the latest which is more accurate
+            if theDate == getFormattedString(for: Date()) {
+                date = nil
+            }
+            convert(for: date, amount: amount, firstCurrency: firstCurr, secondCurrency: secCurr) { (_, _, convertedVal) in
                 dataDictionary[theDate] = convertedVal
                 myGroup.leave()
             }
