@@ -54,6 +54,7 @@ class ExchangeViewController: UIViewController {
     
     private func setupUI() {
         dimView.isHidden = true
+        dimView.alpha = 0.4
         centerArrowBorder.layer.cornerRadius = centerArrowBorder.frame.width / 2
         centerArrowImageView.layer.cornerRadius = centerArrowImageView.frame.width / 2
     }

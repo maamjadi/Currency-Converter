@@ -89,6 +89,7 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDelegate
         self.pageControl.tintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.7)
         self.pageControl.pageIndicatorTintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.4)
         self.pageControl.currentPageIndicatorTintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.7)
+        pageControl.isUserInteractionEnabled = false
         self.view.addSubview(pageControl)
     }
     
