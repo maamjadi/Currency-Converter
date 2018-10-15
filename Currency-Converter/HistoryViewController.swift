@@ -7,13 +7,77 @@
 //
 
 import UIKit
+import Charts
 
 class HistoryViewController: UIViewController {
-
+    
+    @IBOutlet weak var chartView: LineChartView!
+    
+    private var chartData = [(key: String, value: Float)]() {
+        didSet {
+            setChartData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupChartView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        RateHandler.shared.convertionForLastSevenDays { (succ, err, data) in
+            self.chartData = data
+        }
+    }
+    
+    private func setupChartView() {
+        chartView.delegate = self
+        chartView.chartDescription?.enabled = false
+        chartView.dragEnabled = true
+        chartView.setScaleEnabled(true)
+        chartView.pinchZoomEnabled = true
+        chartView.legend.form = .line
+        chartView.animate(xAxisDuration: 2.5)
+    }
+    
+    private func setChartData() {
+        let values = (0..<chartData.count).map { (i) -> ChartDataEntry in
+            let val = chartData[i].value
+            return ChartDataEntry(x: Double(i), y: Double(val))
+        }
+        
+        let set1 = LineChartDataSet(values: values, label: "DataSet 1")
+        set1.drawIconsEnabled = false
+        
+        set1.lineDashLengths = [5, 2.5]
+        set1.highlightLineDashLengths = [5, 2.5]
+        set1.setColor(.black)
+        set1.setCircleColor(.black)
+        set1.lineWidth = 1
+        set1.circleRadius = 3
+        set1.drawCircleHoleEnabled = false
+        set1.valueFont = .systemFont(ofSize: 9)
+        set1.formLineDashLengths = [5, 2.5]
+        set1.formLineWidth = 1
+        set1.formSize = 15
+        
+        let gradientColors = [UIColor(named: "LightColor")?.withAlphaComponent(0.1).cgColor,
+                              UIColor(named: "LightColor")?.cgColor]
+        let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
+        
+        set1.fillAlpha = 1
+        set1.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
+        set1.drawFilledEnabled = true
+        
+        let data = LineChartData(dataSet: set1)
+        
+        chartView.data = data
     }
 
+}
+
+extension HistoryViewController: ChartViewDelegate {
+    
 }

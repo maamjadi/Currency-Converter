@@ -10,25 +10,59 @@ import XCTest
 @testable import Currency_Converter
 
 class Currency_ConverterTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testGetTheCurrencies() {
+        let exp = expectation(description: "getting the list of all the available currencies")
+        var curr = [String]()
+        RateHandler.shared.getTheCurrencies { (_, data) in
+            curr = data
+            exp.fulfill()
         }
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertFalse(curr.isEmpty)
     }
-
+    
+    func testConvertForADate() {
+        let exp = expectation(description: "getting the converted value based on the random date's rates")
+        var value: Float = 0
+        RateHandler.shared.convert(for: "2012-11-08", amount: 1, firstCurrency: "EUR", secondCurrency: "USD") { (_, _, data) in
+            value = data
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertGreaterThan(value, 0)
+    }
+    
+    func testConvertToday() {
+        let exp = expectation(description: "getting the converted value based on the today's rates")
+        var value: Float = 0
+        RateHandler.shared.convert(amount: 1, firstCurrency: "EUR", secondCurrency: "USD") { (_, _, data) in
+            value = data
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertGreaterThan(value, 0)
+    }
+    
+    //test case for whether we are getting the data for each last seven days or not
+    func testConvertionForLastSevenDays() {
+        let exp = expectation(description: "getting convertion rates for last seven days completes")
+        var theData = [(key: String, value: Float)]()
+        RateHandler.shared.convertionForLastSevenDays { (_, _, data) in
+            theData = data
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertEqual(theData.count, 7)
+    }
+    
+    
 }
