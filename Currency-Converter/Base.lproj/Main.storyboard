@@ -194,7 +194,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pqj-ts-97s">
-                                <rect key="frame" x="20" y="38" width="374" height="410"/>
+                                <rect key="frame" x="20" y="52" width="374" height="396"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="historyCell" textLabel="fmD-b6-K57" detailTextLabel="7Yj-Qu-Tle" rowHeight="60" style="IBUITableViewCellStyleValue1" id="NUl-YG-YhU">
@@ -225,7 +225,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe4-cl-f6V">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="98"/>
+                                <rect key="frame" x="0.0" y="52" width="414" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conversion History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22C-Xd-PgW">
@@ -251,7 +251,7 @@
                             <constraint firstItem="1C0-0C-R1n" firstAttribute="top" secondItem="pqj-ts-97s" secondAttribute="bottom" id="5PZ-7B-uAS"/>
                             <constraint firstItem="22C-Xd-PgW" firstAttribute="trailing" secondItem="vod-Ym-IkC" secondAttribute="trailingMargin" id="7Hc-WT-285"/>
                             <constraint firstItem="22C-Xd-PgW" firstAttribute="leading" secondItem="vod-Ym-IkC" secondAttribute="leadingMargin" id="BTH-nS-ArT"/>
-                            <constraint firstItem="pqj-ts-97s" firstAttribute="top" secondItem="22C-Xd-PgW" secondAttribute="bottom" constant="-60" id="GPU-xR-Pgn"/>
+                            <constraint firstItem="pqj-ts-97s" firstAttribute="top" secondItem="22C-Xd-PgW" secondAttribute="top" id="GPU-xR-Pgn"/>
                             <constraint firstItem="oZW-uQ-47L" firstAttribute="leading" secondItem="Qfl-iE-xAe" secondAttribute="leading" id="V5z-Y2-rMB"/>
                             <constraint firstItem="oZW-uQ-47L" firstAttribute="trailing" secondItem="Qfl-iE-xAe" secondAttribute="trailing" id="W1D-G3-uqU"/>
                             <constraint firstItem="oZW-uQ-47L" firstAttribute="bottom" secondItem="pqj-ts-97s" secondAttribute="bottom" id="aWq-ZA-5jO"/>
@@ -259,9 +259,9 @@
                             <constraint firstItem="pqj-ts-97s" firstAttribute="leading" secondItem="22C-Xd-PgW" secondAttribute="leading" id="bXO-nq-ajR"/>
                             <constraint firstItem="1C0-0C-R1n" firstAttribute="top" secondItem="vod-Ym-IkC" secondAttribute="centerY" id="e0H-HK-mdM"/>
                             <constraint firstItem="1C0-0C-R1n" firstAttribute="trailing" secondItem="Qfl-iE-xAe" secondAttribute="trailing" id="gaB-pz-Cem"/>
-                            <constraint firstItem="Qe4-cl-f6V" firstAttribute="bottom" secondItem="22C-Xd-PgW" secondAttribute="bottom" id="hYI-bA-ejp"/>
+                            <constraint firstItem="Qe4-cl-f6V" firstAttribute="bottom" secondItem="22C-Xd-PgW" secondAttribute="bottom" constant="14" id="hYI-bA-ejp"/>
                             <constraint firstItem="pqj-ts-97s" firstAttribute="trailing" secondItem="22C-Xd-PgW" secondAttribute="trailing" id="k14-Ze-Bao"/>
-                            <constraint firstItem="Qe4-cl-f6V" firstAttribute="top" secondItem="vod-Ym-IkC" secondAttribute="top" id="luT-A1-zb3"/>
+                            <constraint firstItem="Qe4-cl-f6V" firstAttribute="top" secondItem="22C-Xd-PgW" secondAttribute="top" id="luT-A1-zb3"/>
                             <constraint firstItem="1C0-0C-R1n" firstAttribute="leading" secondItem="Qfl-iE-xAe" secondAttribute="leading" id="rHR-8o-rIy"/>
                             <constraint firstItem="22C-Xd-PgW" firstAttribute="top" secondItem="Qfl-iE-xAe" secondAttribute="top" constant="8" id="uRd-2u-Y1I"/>
                             <constraint firstItem="Qe4-cl-f6V" firstAttribute="leading" secondItem="Qfl-iE-xAe" secondAttribute="leading" id="xfA-nW-lsq"/>
