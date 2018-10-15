@@ -26,7 +26,7 @@ class Currency_ConverterTests: XCTestCase {
     
     func testConvertForADate() {
         let exp = expectation(description: "getting the converted value based on the random date's rates")
-        var value: Float = 0
+        var value: Double = 0
         RateHandler.shared.convert(for: "2012-11-08", amount: 1, firstCurrency: "EUR", secondCurrency: "USD") { (_, _, data) in
             value = data
             exp.fulfill()
@@ -39,7 +39,7 @@ class Currency_ConverterTests: XCTestCase {
     
     func testConvertToday() {
         let exp = expectation(description: "getting the converted value based on the today's rates")
-        var value: Float = 0
+        var value: Double = 0
         RateHandler.shared.convert(amount: 1, firstCurrency: "EUR", secondCurrency: "USD") { (_, _, data) in
             value = data
             exp.fulfill()
@@ -53,7 +53,7 @@ class Currency_ConverterTests: XCTestCase {
     //test case for whether we are getting the data for each last seven days or not
     func testConvertionForLastSevenDays() {
         let exp = expectation(description: "getting convertion rates for last seven days completes")
-        var theData = [(key: String, value: Float)]()
+        var theData = [(key: String, value: Double)]()
         RateHandler.shared.convertionForLastSevenDays { (_, _, data) in
             theData = data
             exp.fulfill()
