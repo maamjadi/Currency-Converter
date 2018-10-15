@@ -62,11 +62,10 @@ class HistoryViewController: UIViewController {
     
     private func setupGradientViewsColor(topView: Bool = true, theView: UIView) {
         let color1 = UIColor(named: "DarkColor") ?? .clear
-        var color2 = color1.withAlphaComponent(0)
+        let color2 = color1.withAlphaComponent(0)
         let gradientLayer = CAGradientLayer()
         
         if topView {
-            color2 = color1.withAlphaComponent(0.5)
             gradientLayer.colors = [ color1.cgColor, color2.cgColor ]
         } else {
             gradientLayer.colors = [ color2.cgColor, color1.cgColor ]
@@ -94,7 +93,7 @@ class HistoryViewController: UIViewController {
         set1.setColor(#colorLiteral(red: 0.0706, green: 0.4784, blue: 0.7569, alpha: 1))
         set1.circleColors = circleColors
         set1.lineWidth = 3
-        set1.circleRadius = 3
+        set1.circleRadius = 4
         set1.drawCircleHoleEnabled = false
         set1.valueFont = .systemFont(ofSize: 0)
         set1.formLineDashLengths = [5, 0]
@@ -184,7 +183,7 @@ extension HistoryViewController: ChartViewDelegate {
         let index = values.index(where: {$0.x == highlight.x})  // search index
         
         set1.circleColors = circleColors
-        set1.circleColors[index!] = NSUIColor.cyan
+        set1.circleColors[index!] = .white
         
         chartView.data?.notifyDataChanged()
         chartView.notifyDataSetChanged()
