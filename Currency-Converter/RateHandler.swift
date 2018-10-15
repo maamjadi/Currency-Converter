@@ -17,7 +17,7 @@ class RateHandler {
     //string to get latest currency rates for today
     private let todayStr: String = "latest"
     private var todaysRates: RatesModel?
-    private var currentAmount: Float?
+    private var currentAmount: Double?
     private var currentFirstCurr: String?
     private var currentSecCurr: String?
     
@@ -62,12 +62,12 @@ class RateHandler {
         }
     }
     
-    func convertionForLastSevenDays(completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: [(key: String, value: Float)]) -> Void) {
+    func convertionForLastSevenDays(completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: [(key: String, value: Double)]) -> Void) {
         guard let amount = currentAmount, let firstCurr = currentFirstCurr, let secCurr = currentSecCurr else {
             completionHandler(false, "selected values couldn't be found", [])
             return
         }
-        var dataDictionary = [String : Float]()
+        var dataDictionary = [String : Double]()
         let dates: [String] = getLastSevenDaysDates()
         let myGroup = DispatchGroup()
         //loop through the date strings to get their corresponding conversion rates
@@ -117,14 +117,14 @@ class RateHandler {
         return dates
     }
     
-    func convert(for theDate: String? = nil, amount: Float, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Float) -> Void) {
+    func convert(for theDate: String? = nil, amount: Double, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Double) -> Void) {
         currentAmount = amount
         currentFirstCurr = firstCurr
         currentSecCurr = secCurr
         fetchRates(for: theDate ?? todayStr) { (success, err, rates) in
             if let rates = rates, success {
-                var firstRate: Float?
-                var secondRate: Float?
+                var firstRate: Double?
+                var secondRate: Double?
                 
                 //looping through the rates to find the wanted ones
                 for (key, value) in rates.rates {
@@ -149,8 +149,8 @@ class RateHandler {
         }
     }
     
-    private func roundToFiveDecimalPlaces(for theFLoat: Float) -> Float {
-        let val = Float(round(100000*theFLoat)/100000)
+    private func roundToFiveDecimalPlaces(for theDouble: Double) -> Double {
+        let val = Double(round(100000*theDouble)/100000)
         return val
     }
     
