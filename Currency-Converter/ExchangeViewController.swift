@@ -54,7 +54,7 @@ class ExchangeViewController: UIViewController {
     
     private func setupUI() {
         dimView.isHidden = true
-        dimView.alpha = 0.4
+        dimView.alpha = 0
         centerArrowBorder.layer.cornerRadius = centerArrowBorder.frame.width / 2
         centerArrowImageView.layer.cornerRadius = centerArrowImageView.frame.width / 2
     }
@@ -134,10 +134,11 @@ class ExchangeViewController: UIViewController {
     @objc
     private func dimissCurrenciesTableView(_ sender: UITapGestureRecognizer?) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-            self.dimView.isHidden = true
+            self.dimView.alpha = 0
             self.currenciesTableView.transform = CGAffineTransform(scaleX: 0.01, y: 0.005)
         }, completion: {(success) in
             self.currenciesTableView.removeFromSuperview()
+            self.dimView.isHidden = true
         })
     }
     
@@ -158,8 +159,9 @@ class ExchangeViewController: UIViewController {
         self.view.addSubview(currenciesTableView)
         currenciesTableView.clipsToBounds = true
         
+        self.dimView.isHidden = false
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [], animations: {
-            self.dimView.isHidden = false
+            self.dimView.alpha = 0.4
             self.currenciesTableView.transform = .identity
         })
     }
