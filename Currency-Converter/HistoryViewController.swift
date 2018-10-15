@@ -125,10 +125,10 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
         let index = indexPath.row
+        cell.selectionStyle = .none
         if (index == 0 || index == (chartData.count + 1)) {
             cell.textLabel?.isHidden = true
             cell.detailTextLabel?.isHidden = true
-            cell.selectionStyle = .none
             return cell
         } else {
             cell.textLabel?.isHidden = false
