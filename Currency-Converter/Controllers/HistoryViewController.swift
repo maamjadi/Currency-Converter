@@ -130,6 +130,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
         let index = indexPath.row
+        //showing 2 empty cells, one at the start and one at the end to make up for the gradient views
         if (index == 0 || index == (chartData.count + 1)) {
             cell.textLabel?.isHidden = true
             cell.detailTextLabel?.isHidden = true
@@ -151,7 +152,8 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cellSelected = true
-        let xPoint = Double(indexPath.row)
+        //to get the correct x point for the respective chart data point
+        let xPoint = Double(chartData.count - indexPath.row + 1)
         chartView.highlightValue(x: xPoint, dataSetIndex: 0)
     }
     
@@ -163,13 +165,16 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension HistoryViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if !(cellSelected) {
-        //if there is a selected cell first deselect it
-        if let index = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: index, animated: false)
-        }
-        let rowIndex = Int(entry.x)
-        //selecting the new cell by the x chart data point
-        tableView.selectRow(at: IndexPath(row: rowIndex, section: 0), animated: true, scrollPosition: .middle)
+            //if there is a selected cell first deselect it
+            if let index = tableView.indexPathForSelectedRow {
+                tableView.deselectRow(at: index, animated: false)
+            }
+            //to get the correct row index for the respective table view cell
+            let rowIndex = abs(Int(entry.x) - chartData.count) + 1
+            let theIndexPath = IndexPath(row: rowIndex, section: 0)
+            //selecting the new cell by the x chart data point
+            tableView.selectRow(at: theIndexPath, animated: true, scrollPosition: .middle)
+            tableView(tableView, didSelectRowAt: theIndexPath)
         } else {
             cellSelected = false
         }
