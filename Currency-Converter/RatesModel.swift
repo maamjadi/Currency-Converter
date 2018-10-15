@@ -13,5 +13,5 @@ struct RatesModel: Decodable {
     var timestamp: Int
     var base: String
     var date: String
-    var rates: [String: Float]
+    var rates: [String: Double]
 }

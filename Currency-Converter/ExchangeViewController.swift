@@ -88,9 +88,9 @@ class ExchangeViewController: UIViewController {
             convertedAmountBtn = firstAmount
         }
         
-        if let floatAmount = Float(amountStr) {
+        if let doubleAmount = Double(amountStr) {
             //calling convert function of rate handler to get converted value
-            RateHandler.shared.convert(amount: floatAmount, firstCurrency: first, secondCurrency: second) { (success, err, convertedFloat) in
+            RateHandler.shared.convert(amount: doubleAmount, firstCurrency: first, secondCurrency: second) { (success, err, convertedDouble) in
                 if let error = err {
                     //presenting an alert dialog in case there will an error
                     let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
@@ -98,7 +98,7 @@ class ExchangeViewController: UIViewController {
                     
                     self.present(alertController, animated: true, completion: nil)
                 }
-                convertedAmountBtn?.setTitle(String(describing: convertedFloat), for: .normal)
+                convertedAmountBtn?.setTitle(String(describing: convertedDouble), for: .normal)
             }
         }
     }

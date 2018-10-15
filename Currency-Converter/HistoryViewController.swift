@@ -13,7 +13,7 @@ class HistoryViewController: UIViewController {
     
     @IBOutlet weak var chartView: LineChartView!
     
-    private var chartData = [(key: String, value: Float)]() {
+    private var chartData = [(key: String, value: Double)]() {
         didSet {
             setChartData()
         }
@@ -28,6 +28,7 @@ class HistoryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         RateHandler.shared.convertionForLastSevenDays { (succ, err, data) in
+            print(data)
             self.chartData = data
         }
     }
@@ -39,22 +40,30 @@ class HistoryViewController: UIViewController {
         chartView.setScaleEnabled(true)
         chartView.pinchZoomEnabled = true
         chartView.legend.form = .line
+        
+        let limitLine = ChartLimitLine(limit: 0, label: "")
+        limitLine.lineColor = UIColor.black.withAlphaComponent(0.3)
+        limitLine.lineWidth = 1
+        
+        chartView.rightAxis.addLimitLine(limitLine)
+        chartView.leftAxis.addLimitLine(limitLine)
         chartView.animate(xAxisDuration: 2.5)
     }
     
     private func setChartData() {
         let values = (0..<chartData.count).map { (i) -> ChartDataEntry in
             let val = chartData[i].value
-            return ChartDataEntry(x: Double(i), y: Double(val))
+            print(val)
+            return ChartDataEntry(x: Double(i-1), y: val)
         }
         
-        let set1 = LineChartDataSet(values: values, label: "DataSet 1")
+        let set1 = LineChartDataSet(values: values, label: "Converted value history")
         set1.drawIconsEnabled = false
         
         set1.lineDashLengths = [5, 2.5]
         set1.highlightLineDashLengths = [5, 2.5]
-        set1.setColor(.black)
-        set1.setCircleColor(.black)
+        set1.setColor(.white)
+        set1.setCircleColor(.white)
         set1.lineWidth = 1
         set1.circleRadius = 3
         set1.drawCircleHoleEnabled = false

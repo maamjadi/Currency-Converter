@@ -71,7 +71,7 @@ class NumericViewController: UIViewController {
         }
         var theString = currentNum + senderNum
         
-        //the conditions to make sure about the correct format of the float numbers
+        //the conditions to make sure about the correct format of the double numbers
         if (senderNum == "0") && (currentNum == "0") {
             return
         }
