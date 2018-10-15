@@ -134,7 +134,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         if (index == 0 || index == (chartData.count + 1)) {
             cell.textLabel?.isHidden = true
             cell.detailTextLabel?.isHidden = true
-            cell.selectionStyle = .none
             return cell
         } else {
             cell.selectionStyle = .blue
@@ -152,8 +151,12 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         cellSelected = true
+        let row = indexPath.row
+        if row == 0 || row >= (chartData.count + 1) {
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
         //to get the correct x point for the respective chart data point
-        let xPoint = Double(chartData.count - indexPath.row + 1)
+        let xPoint = Double(chartData.count - row + 1)
         chartView.highlightValue(x: xPoint, dataSetIndex: 0)
     }
     
@@ -185,13 +188,14 @@ extension HistoryViewController: ChartViewDelegate {
         var set1 = LineChartDataSet()
         set1 = (chartView.data?.dataSets[0] as? LineChartDataSet)!
         let values = set1.values
-        let index = values.index(where: {$0.x == highlight.x})  // search index
-        
-        set1.circleColors = circleColors
-        set1.circleColors[index!] = .white
-        
-        chartView.data?.notifyDataChanged()
-        chartView.notifyDataSetChanged()
+        // search index
+        if let index = values.index(where: {$0.x == highlight.x}) {
+            set1.circleColors = circleColors
+            set1.circleColors[index] = .white
+            
+            chartView.data?.notifyDataChanged()
+            chartView.notifyDataSetChanged()
+        }
     }
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
