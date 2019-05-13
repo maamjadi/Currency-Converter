@@ -16,19 +16,19 @@ class NumericViewController: UIViewController {
     @IBOutlet weak var dismissBtn: UIButton!
     
     var defaultColorTheme = true
-    var numberSetter: NumberSetterProtocol?
+    weak var numberSetter: NumberSetterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         numberLabel.text = "0"
     }
-    
-    override func viewWillLayoutSubviews() {
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         setupUI()
     }
     
@@ -69,7 +69,7 @@ class NumericViewController: UIViewController {
         guard let currentNum = numberLabel.text, let senderNum = sender.currentTitle else {
             return
         }
-        var theString = currentNum + senderNum
+        var stringValue = currentNum + senderNum
         
         //the conditions to make sure about the correct format of the double numbers
         if (senderNum == "0") && (currentNum == "0") {
@@ -79,9 +79,9 @@ class NumericViewController: UIViewController {
             return
         }
         else if (senderNum != "0") && (senderNum != ".") && (currentNum == "0") {
-            theString = senderNum
+            stringValue = senderNum
         }
-        numberLabel.text = theString
+        numberLabel.text = stringValue
     }
     
     @IBAction func doneAction(_ sender: Any) {

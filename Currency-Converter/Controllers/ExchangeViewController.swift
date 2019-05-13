@@ -60,7 +60,7 @@ class ExchangeViewController: UIViewController {
     }
     
     private func setupData() {
-        RateHandler.shared.getTheCurrencies { (success, currencies) in
+        RateHandler.shared.getCurrencies { (success, currencies) in
             self.currenciesArray = currencies
         }
         firstCurrency.setTitle(getDevicesCurrencyCode(), for: .normal)

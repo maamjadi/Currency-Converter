@@ -6,33 +6,42 @@
 //  Copyright © 2018 Amin Amjadi. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import CoreData
 
-class RateHandler {
+class RateHandler: NSObject {
     
     static let shared = RateHandler()
     
     //fixer.io api key for using the service
     private let apiKey = "6554d9e9aa28145210f3e85cfa0a5cdf"
-    //string to get latest currency rates for today
-    private let todayStr: String = "latest"
-    private var todaysRates: RatesModel?
     private var currentAmount: Double?
     private var currentFirstCurr: String?
     private var currentSecCurr: String?
+    private static var mainContext: NSManagedObjectContext!
+
+    override init() {
+        let container = NSPersistentContainer.create(for: "Model")
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        RateHandler.mainContext = container.viewContext
+        super.init()
+    }
     
-    private func fetchRates(for theDate: String, completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: RatesModel?) -> Void) {
+    private func fetchRates(for date: String? = nil, completionHandler: @escaping (_ success:Bool, _ error: String?, _ data: [Rate]?) -> Void) {
+
+        let date = date ?? getFormattedString(for: Date())
+
         //checking if we have fetch the todaysRates before, to just return it
-        if let rates = todaysRates, theDate == todayStr {
+        if let rates = Rate.getItems(for: date, context: RateHandler.mainContext), !rates.isEmpty {
             completionHandler(true, nil, rates)
         } else {
-            let urlString = "http://data.fixer.io/api/\(theDate)?access_key=\(apiKey)&base=EUR"
-            guard let theURL = URL(string: urlString) else {
+            let urlString = "http://data.fixer.io/api/\(date)?access_key=\(apiKey)&base=EUR"
+            guard let url = URL(string: urlString) else {
                 completionHandler(false, "couldn't convert String to URL", nil)
                 return
             }
             
-            URLSession.shared.dataTask(with: theURL) { (data, _, err) in
+            URLSession.shared.dataTask(with: url) { (data, _, err) in
                 //start the asynchronous task on main thread
                 DispatchQueue.main.async {
                     if let err = err {
@@ -48,12 +57,10 @@ class RateHandler {
                     do {
                         //decoding the json data
                         let decoder = JSONDecoder()
-                        let theRates = try decoder.decode(RatesModel.self, from: data)
-                        //assigning the rates to todayRates if the date is today
-                        if theDate == self.todayStr {
-                            self.todaysRates = theRates
-                        }
-                        completionHandler(true, nil, theRates)
+                        let rateObject = try decoder.decode(RateObjectDTO.self, from: data)
+                        let rates = Rate.addOrUpdateRates(from: rateObject, context: RateHandler.mainContext)
+                        RateHandler.mainContext.cd_saveToPersistentStore()
+                        completionHandler(true, nil, rates)
                     } catch let jsonErr {
                         completionHandler(false, "Fail to decode:\(jsonErr)", nil)
                     }
@@ -71,15 +78,15 @@ class RateHandler {
         let dates: [String] = getLastSevenDaysDates()
         let myGroup = DispatchGroup()
         //loop through the date strings to get their corresponding conversion rates
-        for theDate in dates {
+        dates.forEach { date in
             myGroup.enter()
-            var date: String? = theDate
-            //check and if theDate is today, it won't send any date to get the latest which is more accurate
-            if theDate == getFormattedString(for: Date()) {
-                date = nil
+            var dateValue: String? = date
+            //check and if date is today, it won't send any date to get the latest which is more accurate
+            if date == getFormattedString(for: Date()) {
+                dateValue = nil
             }
-            convert(for: date, amount: amount, firstCurrency: firstCurr, secondCurrency: secCurr) { (_, _, convertedVal) in
-                dataDictionary[theDate] = convertedVal
+            convert(for: dateValue, amount: amount, firstCurrency: firstCurr, secondCurrency: secCurr) { (_, _, convertedVal) in
+                dataDictionary[date] = convertedVal
                 myGroup.leave()
             }
         }
@@ -109,38 +116,42 @@ class RateHandler {
         let calendar = Calendar.current
         let today = Date()
         dates.append(getFormattedString(for: today))
-        for i in 1...6 {
-            if let theDate = calendar.date(byAdding: .day, value: -i, to: today) {
-                dates.append(getFormattedString(for: theDate))
+        for ctr in 1...6 {
+            if let date = calendar.date(byAdding: .day, value: -ctr, to: today) {
+                dates.append(getFormattedString(for: date))
             }
         }
         return dates
     }
     
-    func convert(for theDate: String? = nil, amount: Double, firstCurrency firstCurr: String, secondCurrency secCurr: String, completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Double) -> Void) {
+    func convert(for date: String? = nil,
+                 amount: Double,
+                 firstCurrency firstCurr: String,
+                 secondCurrency secCurr: String,
+                 completionHandler: @escaping (_ success: Bool, _ error: String?, _ data: Double) -> Void) {
         currentAmount = amount
         currentFirstCurr = firstCurr
         currentSecCurr = secCurr
-        fetchRates(for: theDate ?? todayStr) { (success, err, rates) in
+        fetchRates(for: date) { (success, err, rates) in
             if let rates = rates, success {
                 var firstRate: Double?
                 var secondRate: Double?
                 
                 //looping through the rates to find the wanted ones
-                for (key, value) in rates.rates {
-                    if key == firstCurr {
-                        firstRate = value
+                rates.forEach { rate in
+                    if rate.currency == firstCurr {
+                        firstRate = rate.value
                     }
-                    if key == secCurr {
-                        secondRate = value
+                    if rate.currency == secCurr {
+                        secondRate = rate.value
                     }
                 }
-                guard let theFirst = firstRate, let theSecond = secondRate else {
+                guard let first = firstRate, let second = secondRate else {
                     completionHandler(false, "Choosen currency couldn't be found in data set", 0)
                     return
                 }
-                let theRate = theSecond / theFirst
-                let val = self.roundToFiveDecimalPlaces(for: amount * theRate)
+                let rate = second / first
+                let val = amount * rate
                 completionHandler(true, nil, val)
             } else {
                 //returns 0 as the converted value if it cannot get the rates
@@ -149,22 +160,17 @@ class RateHandler {
         }
     }
     
-    private func roundToFiveDecimalPlaces(for theDouble: Double) -> Double {
-        let val = Double(round(100000*theDouble)/100000)
-        return val
-    }
-    
     //fetch the available currencies
-    func getTheCurrencies(completionHandler: @escaping (_ success: Bool, _ data: [String]) -> Void) {
-        fetchRates(for: todayStr) { (success, err, rates) in
+    func getCurrencies(completionHandler: @escaping (_ success: Bool, _ data: [String]) -> Void) {
+        fetchRates { (success, err, rates) in
             if let rates = rates, success {
-                var theData = [String]()
-                for theKey in rates.rates.keys {
-                    theData.append(theKey)
+                var data = [String]()
+                rates.forEach { rate in
+                    data.append(rate.currency)
                 }
                 //sorting the array in alphabetical order
-                theData = theData.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
-                completionHandler(true, theData)
+                data = data.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
+                completionHandler(true, data)
             } else {
                 completionHandler(false, [])
             }

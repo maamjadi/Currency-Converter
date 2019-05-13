@@ -20,8 +20,8 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
-        self.dataSource = self
+        delegate = self
+        dataSource = self
         
         // This sets up the first view that will show up on our page control
         if let firstViewController = orderedViewControllers.first {
@@ -78,19 +78,19 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDelegate
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let pageContentViewController = pageViewController.viewControllers![0]
-        self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+        pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
     }
     
     private func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 50,width: UIScreen.main.bounds.width,height: 50))
-        self.pageControl.numberOfPages = orderedViewControllers.count
-        self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.7)
-        self.pageControl.pageIndicatorTintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.4)
-        self.pageControl.currentPageIndicatorTintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.7)
+        pageControl.numberOfPages = orderedViewControllers.count
+        pageControl.currentPage = 0
+        pageControl.tintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.7)
+        pageControl.pageIndicatorTintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.4)
+        pageControl.currentPageIndicatorTintColor = UIColor(named: "LightColor")?.withAlphaComponent(0.7)
         pageControl.isUserInteractionEnabled = false
-        self.view.addSubview(pageControl)
+        view.addSubview(pageControl)
     }
     
     private func newVc(viewController: String) -> UIViewController {

@@ -11,10 +11,10 @@ import XCTest
 
 class Currency_ConverterTests: XCTestCase {
     
-    func testGetTheCurrencies() {
+    func testGetCurrencies() {
         let exp = expectation(description: "getting the list of all the available currencies")
         var curr = [String]()
-        RateHandler.shared.getTheCurrencies { (_, data) in
+        RateHandler.shared.getCurrencies { (_, data) in
             curr = data
             exp.fulfill()
         }
@@ -53,15 +53,15 @@ class Currency_ConverterTests: XCTestCase {
     //test case for whether we are getting the data for each last seven days or not
     func testConvertionForLastSevenDays() {
         let exp = expectation(description: "getting convertion rates for last seven days completes")
-        var theData = [(key: String, value: Double)]()
-        RateHandler.shared.convertionForLastSevenDays { (_, _, data) in
-            theData = data
+        var data = [(key: String, value: Double)]()
+        RateHandler.shared.convertionForLastSevenDays { (_, _, retrievedData) in
+            data = retrievedData
             exp.fulfill()
         }
         
         waitForExpectations(timeout: 10)
         
-        XCTAssertEqual(theData.count, 7)
+        XCTAssertEqual(data.count, 7)
     }
     
     

@@ -1,5 +1,5 @@
 //
-//  RatesModel.swift
+//  RateObjectDTO.swift
 //  Currency-Converter
 //
 //  Created by Amin Amjadi on 10/13/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RatesModel: Decodable {
+struct RateObjectDTO: Decodable {
     var success: Bool
     var timestamp: Int
     var base: String

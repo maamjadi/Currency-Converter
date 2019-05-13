@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol NumberSetterProtocol {
+protocol NumberSetterProtocol: class {
     func set(num: String)
 }

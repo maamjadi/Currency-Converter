@@ -28,8 +28,7 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+
         setupGradientViewsColor(theView: topGradientView)
         setupGradientViewsColor(topView: false, theView: bottomGradientView)
         tableView.delegate = self
@@ -38,6 +37,8 @@ class HistoryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        //App should retrieve data on every view did appear instead of view
+        //did load because the currencies and amounts change everytime
         RateHandler.shared.convertionForLastSevenDays { (succ, err, data) in
             print(data)
             self.chartData = data
