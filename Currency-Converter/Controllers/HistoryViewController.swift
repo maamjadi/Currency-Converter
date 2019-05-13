@@ -39,9 +39,9 @@ class HistoryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         //App should retrieve data on every view did appear instead of view
         //did load because the currencies and amounts change everytime
-        RateHandler.shared.convertionForLastSevenDays { (succ, err, data) in
+        RateHandler.shared.convertionForLastSevenDays { [weak self] (succ, err, data) in
             print(data)
-            self.chartData = data
+            self?.chartData = data
         }
     }
     

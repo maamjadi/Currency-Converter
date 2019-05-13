@@ -60,8 +60,8 @@ class ExchangeViewController: UIViewController {
     }
     
     private func setupData() {
-        RateHandler.shared.getCurrencies { (success, currencies) in
-            self.currenciesArray = currencies
+        RateHandler.shared.getCurrencies { [weak self] (success, currencies) in
+            self?.currenciesArray = currencies
         }
         firstCurrency.setTitle(getDevicesCurrencyCode(), for: .normal)
         convertValue()
@@ -91,17 +91,24 @@ class ExchangeViewController: UIViewController {
         
         if let doubleAmount = Double(amountStr) {
             //calling convert function of rate handler to get converted value
-            RateHandler.shared.convert(amount: doubleAmount, firstCurrency: first, secondCurrency: second) { (success, err, convertedDouble) in
+            RateHandler.shared.convert(amount: doubleAmount, firstCurrency: first, secondCurrency: second) { [weak self] (success, err, convertedDouble) in
                 if let error = err {
-                    //presenting an alert dialog in case there will an error
-                    let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
-                    
-                    self.present(alertController, animated: true, completion: nil)
+                    self?.presentAlert(with: error)
                 }
-                convertedAmountBtn?.setTitle(String(describing: convertedDouble), for: .normal)
+
+                //only set the 7 first characters of the string to prevent the truncation
+                let valueString = String(String(describing: convertedDouble).prefix(7))
+                convertedAmountBtn?.setTitle(valueString, for: .normal)
             }
         }
+    }
+
+    private func presentAlert(with string: String) {
+        //presenting an alert dialog in case there will an error
+        let alertController = UIAlertController(title: "Error", message: string, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+
+        present(alertController, animated: true, completion: nil)
     }
     
     @objc
@@ -153,13 +160,13 @@ class ExchangeViewController: UIViewController {
     }
     
     private func showCurrenciesTableView() {
-        currenciesTableView.center = self.view.center
+        currenciesTableView.center = view.center
         currenciesTableView.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
         currenciesTableView.layer.cornerRadius = 10
-        self.view.addSubview(currenciesTableView)
+        view.addSubview(currenciesTableView)
         currenciesTableView.clipsToBounds = true
         
-        self.dimView.isHidden = false
+        dimView.isHidden = false
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [], animations: {
             self.dimView.alpha = 0.4
             self.currenciesTableView.transform = .identity
@@ -235,14 +242,14 @@ extension ExchangeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let theBtnCurrency = changetheCurrency, let theCurrency = currenciesTableView.cellForRow(at: indexPath)?.textLabel?.text else {
+        guard let buttonCurrency = changetheCurrency, let currency = currenciesTableView.cellForRow(at: indexPath)?.textLabel?.text else {
             return
         }
-        if theBtnCurrency == 0 {
-            firstCurrency.setTitle(theCurrency, for: .normal)
+        if buttonCurrency == 0 {
+            firstCurrency.setTitle(currency, for: .normal)
         }
-        else if theBtnCurrency == 1 {
-            secondCurrency.setTitle(theCurrency, for: .normal)
+        else if buttonCurrency == 1 {
+            secondCurrency.setTitle(currency, for: .normal)
         }
         convertValue()
         dimissCurrenciesTableView(nil)
